@@ -83,8 +83,9 @@ a { color: inherit; text-decoration: none; }
     font-family: var(--serif); font-weight: 300; font-size: 16px;
 }
 .nav-links { display: flex; align-items: center; gap: 28px; }
-.nav-links a { color: var(--ink-2); font-size: 14px; font-weight: 500; }
-.nav-links a:hover { color: var(--ink); }
+.nav-links a:not(.btn) { color: var(--ink-2); font-size: 14px; font-weight: 500; transition: color .2s ease; }
+.nav-links a:not(.btn):hover { color: var(--ink); }
+.nav-links .btn { padding: 9px 18px; font-size: 14px; }
 
 /* ---------- Buttons (rectangular, 8px — like loButton) ---------- */
 .btn {
@@ -124,14 +125,22 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Phone mock ---------- */
 .phone-stage { margin: 72px auto 0; max-width: 300px; }
 .phone {
-    aspect-ratio: 9 / 19.5; border-radius: 46px;
-    background: var(--ink); padding: 11px;
-    box-shadow: 0 30px 80px rgba(0,0,0,.18);
+    position: relative;
+    aspect-ratio: 9 / 19.5; border-radius: 48px;
+    background: #0b0b0c; padding: 9px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.06) inset,
+                0 40px 90px rgba(0,0,0,.28);
 }
 .phone-screen {
-    width: 100%; height: 100%; border-radius: 36px;
+    position: relative;
+    width: 100%; height: 100%; border-radius: 40px;
     background: var(--bg); border: .5px solid var(--border);
-    display: flex; flex-direction: column; padding: 30px 20px; gap: 12px; overflow: hidden;
+    display: flex; flex-direction: column; padding: 34px 20px 30px; gap: 12px; overflow: hidden;
+}
+/* Dynamic Island */
+.phone-screen::before {
+    content: ""; position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
+    width: 78px; height: 22px; border-radius: 999px; background: #0b0b0c; z-index: 2;
 }
 .ph-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--ink-3); text-transform: uppercase; }
 .ph-h { font-family: var(--serif); font-weight: 200; font-size: 30px; letter-spacing: -.02em; margin-bottom: 4px; }
@@ -162,7 +171,9 @@ section.block { padding: 80px 0; }
 .card {
     background: var(--surface); border: .5px solid var(--border);
     border-radius: var(--radius-card); padding: 28px;
+    transition: border-color .25s ease, transform .25s ease;
 }
+.card:hover { border-color: var(--ink-3); transform: translateY(-3px); }
 .card .ic {
     width: 40px; height: 40px; border-radius: var(--radius-btn);
     background: var(--ink); color: var(--bg);
@@ -209,6 +220,16 @@ section.block { padding: 80px 0; }
     background: var(--surface); border: .5px solid var(--border);
     border-radius: var(--radius-card); padding: 20px 22px; margin-bottom: 36px;
     font-size: 15px; font-weight: 300;
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
 }
 
 /* ---------- Responsive ---------- */
