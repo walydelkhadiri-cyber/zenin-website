@@ -135,28 +135,55 @@ a { color: inherit; text-decoration: none; }
     position: relative;
     width: 100%; height: 100%; border-radius: 40px;
     background: var(--bg); border: .5px solid var(--border);
-    display: flex; flex-direction: column; padding: 34px 20px 30px; gap: 12px; overflow: hidden;
+    display: flex; flex-direction: column; padding: 36px 18px 24px; gap: 16px; overflow: hidden;
 }
 /* Dynamic Island */
 .phone-screen::before {
     content: ""; position: absolute; top: 11px; left: 50%; transform: translateX(-50%);
     width: 78px; height: 22px; border-radius: 999px; background: #0b0b0c; z-index: 2;
 }
-.ph-eyebrow { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--ink-3); text-transform: uppercase; }
-.ph-h { font-family: var(--serif); font-weight: 200; font-size: 30px; letter-spacing: -.02em; margin-bottom: 4px; }
-.ph-card {
-    background: var(--surface); border-radius: var(--radius-card);
-    border: .5px solid var(--border);
-    padding: 13px 14px; display: flex; align-items: center; gap: 12px;
-    font-size: 14px; font-weight: 400;
+
+/* Header: serif day number + completion ring (mirrors ClarityDashboardView) */
+.ph-header { display: flex; align-items: flex-start; justify-content: space-between; }
+.ph-dow   { font-family: var(--mono); font-size: 10px; letter-spacing: .28em; color: var(--ink-3); }
+.ph-day   { font-family: var(--serif); font-weight: 200; font-size: 52px; line-height: 1; letter-spacing: -.02em; margin: 2px 0; }
+.ph-month { font-family: var(--mono); font-size: 9px; letter-spacing: .2em; color: var(--ink-2); }
+.ph-ring  { position: relative; width: 44px; height: 44px; flex: none; }
+.ph-ring svg { width: 44px; height: 44px; transform: rotate(-90deg); }
+.ph-ring .track { fill: none; stroke: var(--border); stroke-width: 2; }
+.ph-ring .fill  { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; }
+.ph-ring span { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--mono); font-size: 9px; }
+
+/* Goal cards: round checkbox + pillar + streak */
+.ph-goal {
+    display: flex; align-items: center; gap: 11px;
+    padding: 11px 12px; border-radius: var(--radius-card);
+    border: .5px solid var(--border); background: var(--bg);
 }
-.ph-dot { width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--ink); flex: none; }
-.ph-dot.on { background: var(--ink); }
-.ph-metric { display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px; }
-.ph-metric span:first-child { font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: .1em; color: var(--ink-3); text-transform: uppercase; }
-.ph-metric span:last-child { font-family: var(--mono); font-weight: 200; font-size: 26px; letter-spacing: -.02em; }
-.ph-bar { height: 6px; border-radius: 99px; background: var(--surface); overflow: hidden; }
-.ph-bar > span { display: block; height: 100%; background: var(--ink); }
+.ph-goal.done { background: var(--surface); border-color: color-mix(in srgb, var(--border) 50%, transparent); }
+.ph-check { width: 23px; height: 23px; border-radius: 50%; border: 1.5px solid var(--border); flex: none; display: grid; place-items: center; }
+.ph-check.on { border-color: var(--ink); }
+.ph-check.on::after { content: "✓"; font-size: 11px; font-weight: 600; color: var(--ink); }
+.ph-goal-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ph-goal-text .t { font-size: 14px; font-weight: 400; }
+.ph-goal.done .ph-goal-text .t { color: var(--ink-3); text-decoration: line-through; }
+.ph-goal-text .p { font-family: var(--sans); font-size: 10px; font-weight: 500; color: var(--ink-3); letter-spacing: .01em; }
+.ph-streak { margin-left: auto; text-align: center; flex: none; }
+.ph-streak b { display: block; font-family: var(--mono); font-weight: 300; font-size: 14px; }
+.ph-streak small { font-family: var(--mono); font-size: 8px; color: var(--ink-3); }
+
+/* Compound Progress card */
+.ph-compound { border: .5px solid var(--border); border-radius: var(--radius-card); background: var(--surface); padding: 13px 14px; }
+.ph-compound-h { font-family: var(--sans); font-size: 9px; font-weight: 600; letter-spacing: .14em; color: var(--ink-3); margin-bottom: 9px; }
+.ph-row { display: flex; align-items: center; gap: 9px; height: 19px; }
+.ph-row .l { font-size: 11px; color: var(--ink-2); width: 44px; flex: none; }
+.ph-row .track { flex: 1; height: 4px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+.ph-row .track > i { display: block; height: 100%; background: var(--ink); border-radius: 99px; }
+.ph-row .v { font-family: var(--mono); font-size: 10px; color: var(--ink-2); width: 30px; text-align: right; flex: none; }
+
+/* Dashed "add a goal" row */
+.ph-add { display: flex; align-items: center; gap: 7px; padding: 11px 12px; border-radius: var(--radius-card); border: 1px dashed var(--border); color: var(--ink-2); font-size: 13px; font-weight: 500; }
+.ph-add::before { content: "+"; font-size: 15px; font-weight: 300; line-height: 1; }
 
 /* ---------- Sections ---------- */
 section.block { padding: 80px 0; }
